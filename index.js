@@ -30,7 +30,6 @@ app.get("/", (req, res) => {
         randomBook
       ].book_details[0].author.toLowerCase();
       const url = body.results[randomBook].amazon_product_url;
-      console.log(url);
       fictionList = !fictionList;
       res.render("main", { author, title, url });
     }
