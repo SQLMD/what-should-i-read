@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+app.use(express.static(`${__dirname}/public`));
+
 const request = require("request");
 const API_KEY = process.env.API_KEY;
 
@@ -21,7 +23,7 @@ app.get("/", (req, res) => {
       const author = body.results[
         randomBook
       ].book_details[0].author.toLowerCase();
-      res.send(`${title} by ${author}`);
+      res.render("main.ejs", { author, title });
     }
   );
 });
