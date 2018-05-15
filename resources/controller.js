@@ -1,6 +1,20 @@
 const axios = require("axios");
 const API_KEY = process.env.API_KEY;
 
+const randomDate = (start, end) => {
+  let d = new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    ),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+};
+
 let fictionList = true;
 
 module.exports = {
@@ -13,7 +27,8 @@ module.exports = {
       .get("https://api.nytimes.com/svc/books/v3/lists.json", {
         params: {
           "api-key": API_KEY,
-          list: "combined-print-and-e-book-" + list
+          list: "combined-print-and-e-book-" + list,
+          "published-date": randomDate(new Date(2009, 7, 1), new Date())
         }
       })
       .then(response => {
