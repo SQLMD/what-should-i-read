@@ -23,26 +23,32 @@ module.exports = {
     if (fictionList) {
       list = "nonfiction";
     }
+    const rDate = randomDate(new Date(2009, 7, 1), new Date());
+
     axios
       .get("https://api.nytimes.com/svc/books/v3/lists.json", {
         params: {
           "api-key": API_KEY,
           list: "combined-print-and-e-book-" + list,
-          "published-date": randomDate(new Date(2009, 7, 1), new Date())
+          "published-date": rDate
         }
       })
       .then(response => {
         body = response.data;
         const randomBook = Math.floor(Math.random() * body.results.length);
-        const title = body.results[
-          randomBook
-        ].book_details[0].title.toLowerCase();
-        const author = body.results[
-          randomBook
-        ].book_details[0].author.toLowerCase();
-        const url = body.results[randomBook].amazon_product_url;
-        fictionList = !fictionList;
-        res.render("main", { author, title, url });
+        if (body.results[randomBook] === undefined) {
+          res.redirect("/");
+        } else {
+          const title = body.results[
+            randomBook
+          ].book_details[0].title.toLowerCase();
+          const author = body.results[
+            randomBook
+          ].book_details[0].author.toLowerCase();
+          const url = body.results[randomBook].amazon_product_url;
+          fictionList = !fictionList;
+          res.render("main", { author, title, url });
+        }
       })
       .catch(err => {
         console.log("Error:", err);
