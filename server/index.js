@@ -1,20 +1,27 @@
 const express = require("express");
 const app = express();
 const request = require("request");
+const API_KEY = process.env.API_KEY;
 
 app.get("/", (req, res) => {
   request.get(
     {
       url: "https://api.nytimes.com/svc/books/v3/lists.json",
       qs: {
-        "api-key": "b616c56cf63048b49b44bcfa8cd0d7bd",
-        list: "hardcover-fiction"
+        "api-key": API_KEY,
+        list: "combined-print-and-e-book-fiction"
       }
     },
     function(err, response, body) {
       body = JSON.parse(body);
       const randomBook = Math.floor(Math.random() * body.results.length);
-      res.send(body.results[randomBook].book_details[0].title);
+      const title = body.results[
+        randomBook
+      ].book_details[0].title.toLowerCase();
+      const author = body.results[
+        randomBook
+      ].book_details[0].author.toLowerCase();
+      res.send(`${title} by ${author}`);
     }
   );
 });
