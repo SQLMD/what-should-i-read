@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.static(`${__dirname}/public`));
+app.set("view engine", "ejs");
 
 const request = require("request");
 const API_KEY = process.env.API_KEY;
@@ -28,8 +29,10 @@ app.get("/", (req, res) => {
       const author = body.results[
         randomBook
       ].book_details[0].author.toLowerCase();
+      const url = body.results[randomBook].amazon_product_url;
+      console.log(url);
       fictionList = !fictionList;
-      res.render("main.ejs", { author, title });
+      res.render("main", { author, title, url });
     }
   );
 });

@@ -1,5 +1,13 @@
 .book {
+  background-color: steelblue;
+  margin: 0 auto;
+  padding: 0;
+  width: 50%;
+  color: white;
+  border-radius: 20px;
   text-transform: capitalize;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 2em;
 }
 
