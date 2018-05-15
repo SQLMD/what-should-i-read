@@ -10,6 +10,8 @@
     "request": "^2.85.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "docker":
+      "docker-compose stop && docker-compose rm -f && docker-compose up --build -d"
   }
 }

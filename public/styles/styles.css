@@ -1,5 +1,6 @@
 header {
   padding-top: 100px;
+  font-size: 2em;
 }
 
 .book {
@@ -12,16 +13,23 @@ header {
   text-transform: capitalize;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  font-size: 2em;
+  font-size: 4em;
 }
 
 main {
   text-align: center;
 }
 
+#try {
+  margin: 20px auto;
+  font-size: 0.7em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  border: 1px blue solid;
+  border-radius: 15px;
+  width: 50%;
+  cursor: pointer;
+}
+
 input {
-  margin: 20px;
-  font-size: 3em;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  display: none;
 }
