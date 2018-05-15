@@ -1,9 +1,9 @@
 const express = require("express");
+const axios = require("axios");
 const app = express();
 app.use(express.static(`${__dirname}/public`));
 app.set("view engine", "ejs");
 
-const request = require("request");
 const API_KEY = process.env.API_KEY;
 let fictionList = true;
 
@@ -12,16 +12,15 @@ app.get("/", (req, res) => {
   if (fictionList) {
     list = "nonfiction";
   }
-  request.get(
-    {
-      url: "https://api.nytimes.com/svc/books/v3/lists.json",
-      qs: {
+  axios
+    .get("https://api.nytimes.com/svc/books/v3/lists.json", {
+      params: {
         "api-key": API_KEY,
         list: "combined-print-and-e-book-" + list
       }
-    },
-    function(err, response, body) {
-      body = JSON.parse(body);
+    })
+    .then(response => {
+      body = response.data;
       const randomBook = Math.floor(Math.random() * body.results.length);
       const title = body.results[
         randomBook
@@ -32,8 +31,11 @@ app.get("/", (req, res) => {
       const url = body.results[randomBook].amazon_product_url;
       fictionList = !fictionList;
       res.render("main", { author, title, url });
-    }
-  );
+    })
+    .catch(err => {
+      console.log("Error:", err);
+      res.status(500).send("Server Error!");
+    });
 });
 
 app.listen(3000, () => console.log("Server is running"));

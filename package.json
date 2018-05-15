@@ -5,13 +5,12 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "request": "^2.85.0"
+    "express": "^4.16.3"
   },
   "scripts": {
     "start": "node index.js",
-    "docker":
-      "docker-compose stop && docker-compose rm -f && docker-compose up --build -d"
+    "docker": "docker-compose stop && docker-compose rm -f && docker-compose up --build -d"
   }
 }

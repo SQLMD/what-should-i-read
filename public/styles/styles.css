@@ -3,6 +3,10 @@ header {
   font-size: 2em;
 }
 
+a {
+  text-decoration: none;
+}
+
 .book {
   /* background-color: steelblue; */
   margin: 0 auto;
